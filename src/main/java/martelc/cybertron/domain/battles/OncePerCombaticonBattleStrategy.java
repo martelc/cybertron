@@ -1,6 +1,6 @@
 package martelc.cybertron.domain.battles;
 
-import martelc.cybertron.domain.comparators.TransformerBattleComparator;
+import martelc.cybertron.domain.rules.TransformerBattleRuleRoot;
 import martelc.cybertron.domain.exceptions.OptimusPrimeMeetsPredakingException;
 import martelc.cybertron.domain.game.Team;
 import martelc.cybertron.domain.transformers.Transformer;
@@ -11,10 +11,10 @@ import java.util.Iterator;
 
 public class OncePerCombaticonBattleStrategy implements BattleStrategy {
 
-    private final TransformerBattleComparator comparator;
+    private final TransformerBattleRuleRoot comparator;
 
     @Inject
-    public OncePerCombaticonBattleStrategy(TransformerBattleComparator comparator) {
+    public OncePerCombaticonBattleStrategy(TransformerBattleRuleRoot comparator) {
         this.comparator = comparator;
     }
 
@@ -69,13 +69,13 @@ public class OncePerCombaticonBattleStrategy implements BattleStrategy {
         int compareResult = comparator.compare(autobot, decepticon);
 
 
-        if (TransformerBattleComparator.NEITHER_OPPONENT == compareResult ||
-                TransformerBattleComparator.SECOND_OPPONENT == compareResult) {
+        if (TransformerBattleRuleRoot.NEITHER_OPPONENT == compareResult ||
+                TransformerBattleRuleRoot.SECOND_OPPONENT == compareResult) {
             autobotTeam.destroyCombaticon(autobotIterator);
         }
 
-        if (TransformerBattleComparator.NEITHER_OPPONENT == compareResult ||
-                TransformerBattleComparator.FIRST_OPPONENT == compareResult) {
+        if (TransformerBattleRuleRoot.NEITHER_OPPONENT == compareResult ||
+                TransformerBattleRuleRoot.FIRST_OPPONENT == compareResult) {
             decepticonTeam.destroyCombaticon(decepticonIterator);
         }
     }

@@ -1,6 +1,6 @@
 package martelc.cybertron.domain.transformers;
 
-import martelc.cybertron.domain.comparators.TransformerRankComparator;
+import martelc.cybertron.domain.rules.TransformerRankRule;
 import martelc.cybertron.domain.criteria.Criterion;
 
 import java.util.Comparator;
@@ -65,7 +65,7 @@ public abstract class Transformer implements Comparable<Transformer>, Comparator
     private static final int REQUIRED_NUMBER_OF_CRITERION = Criterion.values().length;
     private static final float INITIAL_LOAD_FACTOR = 0.1f;
 
-    private final Comparator<Transformer> comparator = new TransformerRankComparator().reversed();
+    private final Comparator<Transformer> comparator = new TransformerRankRule().reversed();
     private final String name;
     private final Map<Criterion, Integer> criteria = new HashMap<>(REQUIRED_NUMBER_OF_CRITERION, INITIAL_LOAD_FACTOR);
     private final String motto;

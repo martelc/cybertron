@@ -1,4 +1,4 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.ratings.TransformerRatingStrategy;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
@@ -9,12 +9,12 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-public class TransformerRatingComparatorTest {
+public class TransformerRatingRuleTest {
 
     private final TransformerRatingStrategy mockTransformerRatingStrategy = Mockito.mock(TransformerRatingStrategy.class);
     private final SoundwaveDecepticon mockSoundwaveDecepticon = Mockito.mock(SoundwaveDecepticon.class);
     private final BluestreakAutobot mockBluestreakAutobot = Mockito.mock(BluestreakAutobot.class);
-    private final TransformerRatingComparator transformerRatingComparatorUnderTest = new TransformerRatingComparator(mockTransformerRatingStrategy);
+    private final TransformerRatingRule transformerRatingRuleUnderTest = new TransformerRatingRule(mockTransformerRatingStrategy);
 
     @Test
     public void compare_withFirstTransformerWithLowerRating_returnsSecondTransformer() {
@@ -26,10 +26,10 @@ public class TransformerRatingComparatorTest {
         when(mockTransformerRatingStrategy.calculateRating(mockBluestreakAutobot))
                 .thenReturn(mockBluestreakAutobotRating);
 
-        int declaredWinner = transformerRatingComparatorUnderTest.compare(
+        int declaredWinner = transformerRatingRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
-        assertThat(declaredWinner).isEqualTo(TransformerBattleComparator.SECOND_OPPONENT);
+        assertThat(declaredWinner).isEqualTo(TransformerBattleRuleRoot.SECOND_OPPONENT);
     }
 
     @Test
@@ -42,10 +42,10 @@ public class TransformerRatingComparatorTest {
         when(mockTransformerRatingStrategy.calculateRating(mockSoundwaveDecepticon))
                 .thenReturn(mockSoundwaveDecepticonRating);
 
-        int declaredWinner = transformerRatingComparatorUnderTest.compare(
+        int declaredWinner = transformerRatingRuleUnderTest.compare(
                 mockBluestreakAutobot, mockSoundwaveDecepticon);
 
-        assertThat(declaredWinner).isEqualTo(TransformerBattleComparator.FIRST_OPPONENT);
+        assertThat(declaredWinner).isEqualTo(TransformerBattleRuleRoot.FIRST_OPPONENT);
     }
 
     @Test
@@ -56,10 +56,10 @@ public class TransformerRatingComparatorTest {
         when(mockTransformerRatingStrategy.calculateRating(mockBluestreakAutobot))
                 .thenReturn(mockBluestreakAutobotRating);
 
-        int declaredWinner = transformerRatingComparatorUnderTest.compare(
+        int declaredWinner = transformerRatingRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
-        assertThat(declaredWinner).isEqualTo(TransformerBattleComparator.NEITHER_OPPONENT);
+        assertThat(declaredWinner).isEqualTo(TransformerBattleRuleRoot.NEITHER_OPPONENT);
     }
 
 }

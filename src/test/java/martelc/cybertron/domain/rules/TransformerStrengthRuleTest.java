@@ -1,4 +1,4 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.criteria.Criterion;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
@@ -14,12 +14,12 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-public class TransformerCourageComparatorTest {
+public class TransformerStrengthRuleTest {
 
     private final SoundwaveDecepticon mockSoundwaveDecepticon = Mockito.mock(SoundwaveDecepticon.class);
     private final BluestreakAutobot mockBluestreakAutobot = Mockito.mock(BluestreakAutobot.class);
-    private final TransformerCourageComparator transformerCourageComparatorUnderTest =
-            new TransformerCourageComparator();
+    private final TransformerStrengthRule transformerStrengthRuleUnderTest =
+            new TransformerStrengthRule();
 
     private final Map<Criterion, Integer> soundwaveDecepticonCriteria = new HashMap<>();
     private final Map<Criterion, Integer> bluestreakAutobotCriteri = new HashMap<>();
@@ -32,17 +32,17 @@ public class TransformerCourageComparatorTest {
 
     @Test
     public void compare_withFirstTransformerWinningComparison_returnsFirstTransformer() {
-        int expectedWinner = TransformerBattleComparator.FIRST_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.FIRST_OPPONENT;
 
-        soundwaveDecepticonCriteria.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MAXIMUM);
-        bluestreakAutobotCriteri.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MINIMUM);
+        soundwaveDecepticonCriteria.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MAXIMUM);
+        bluestreakAutobotCriteri.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MINIMUM);
 
         when(mockSoundwaveDecepticon.getCriteria()).thenReturn(soundwaveDecepticonCriteria);
         when(mockBluestreakAutobot.getCriteria()).thenReturn(bluestreakAutobotCriteri);
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerCourageComparatorUnderTest.compare(
+        int declaredWinner = transformerStrengthRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
@@ -50,17 +50,17 @@ public class TransformerCourageComparatorTest {
 
     @Test
     public void compare_withSecondTransformerWinningComparison_returnsSecondTransformer() {
-        int expectedWinner = TransformerBattleComparator.SECOND_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.SECOND_OPPONENT;
 
-        soundwaveDecepticonCriteria.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MINIMUM);
-        bluestreakAutobotCriteri.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MAXIMUM);
+        soundwaveDecepticonCriteria.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MINIMUM);
+        bluestreakAutobotCriteri.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MAXIMUM);
 
         when(mockSoundwaveDecepticon.getCriteria()).thenReturn(soundwaveDecepticonCriteria);
         when(mockBluestreakAutobot.getCriteria()).thenReturn(bluestreakAutobotCriteri);
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerCourageComparatorUnderTest.compare(
+        int declaredWinner = transformerStrengthRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
@@ -68,55 +68,55 @@ public class TransformerCourageComparatorTest {
 
     @Test
     public void compare_withNeitherTransformerWinningComparison_returnsTransformer() {
-        int expectedWinner = TransformerBattleComparator.NEITHER_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.NEITHER_OPPONENT;
 
-        soundwaveDecepticonCriteria.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MINIMUM);
-        bluestreakAutobotCriteri.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MINIMUM);
+        soundwaveDecepticonCriteria.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MINIMUM);
+        bluestreakAutobotCriteri.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MINIMUM);
 
         when(mockSoundwaveDecepticon.getCriteria()).thenReturn(soundwaveDecepticonCriteria);
         when(mockBluestreakAutobot.getCriteria()).thenReturn(bluestreakAutobotCriteri);
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerCourageComparatorUnderTest.compare(
+        int declaredWinner = transformerStrengthRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
     }
 
     @Test
-    public void compare_withFirstTransformerWinningComparisonByExactlyTheCourageDifference_returnsFirstTransformer() {
-        int expectedWinner = TransformerBattleComparator.FIRST_OPPONENT;
+    public void compare_withFirstTransformerWinningComparisonByExactlyTheStrengthDifference_returnsFirstTransformer() {
+        int expectedWinner = TransformerBattleRuleRoot.FIRST_OPPONENT;
 
-        soundwaveDecepticonCriteria.put(Criterion.COURAGE,
-                Transformer.CRITERIA_VALUE_MINIMUM + TransformerCourageComparator.COURAGE_DIFFERENCE);
-        bluestreakAutobotCriteri.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MINIMUM);
+        soundwaveDecepticonCriteria.put(Criterion.STRENGTH,
+                Transformer.CRITERIA_VALUE_MINIMUM + TransformerStrengthRule.STRENGTH_DIFFERENCE);
+        bluestreakAutobotCriteri.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MINIMUM);
 
         when(mockSoundwaveDecepticon.getCriteria()).thenReturn(soundwaveDecepticonCriteria);
         when(mockBluestreakAutobot.getCriteria()).thenReturn(bluestreakAutobotCriteri);
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerCourageComparatorUnderTest.compare(
+        int declaredWinner = transformerStrengthRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
     }
 
     @Test
-    public void compare_withSecondTransformerWinningComparisonByExactlyTheCourageDifference_returnsSecondTransformer() {
-        int expectedWinner = TransformerBattleComparator.SECOND_OPPONENT;
+    public void compare_withSecondTransformerWinningComparisonByExactlyTheStrengthDifference_returnsSecondTransformer() {
+        int expectedWinner = TransformerBattleRuleRoot.SECOND_OPPONENT;
 
-        soundwaveDecepticonCriteria.put(Criterion.COURAGE, Transformer.CRITERIA_VALUE_MINIMUM);
-        bluestreakAutobotCriteri.put(Criterion.COURAGE,
-                Transformer.CRITERIA_VALUE_MINIMUM + TransformerCourageComparator.COURAGE_DIFFERENCE);
+        soundwaveDecepticonCriteria.put(Criterion.STRENGTH, Transformer.CRITERIA_VALUE_MINIMUM);
+        bluestreakAutobotCriteri.put(Criterion.STRENGTH,
+                Transformer.CRITERIA_VALUE_MINIMUM + TransformerStrengthRule.STRENGTH_DIFFERENCE);
 
         when(mockSoundwaveDecepticon.getCriteria()).thenReturn(soundwaveDecepticonCriteria);
         when(mockBluestreakAutobot.getCriteria()).thenReturn(bluestreakAutobotCriteri);
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerCourageComparatorUnderTest.compare(
+        int declaredWinner = transformerStrengthRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);

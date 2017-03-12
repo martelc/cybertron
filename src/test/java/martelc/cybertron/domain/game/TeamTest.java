@@ -1,6 +1,6 @@
 package martelc.cybertron.domain.game;
 
-import martelc.cybertron.domain.comparators.TransformerBattleComparator;
+import martelc.cybertron.domain.rules.TransformerBattleRuleRoot;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
 import martelc.cybertron.domain.transformers.OptimusPrimeAutobot;
 import martelc.cybertron.domain.transformers.PredakingDecepticon;
@@ -36,7 +36,7 @@ public class TeamTest {
 
     @Test
     public void compareTo_withOneLessCombaticonInFirstTeamThanSecondTeam_returnsSecondTeam() {
-        int expectedWinner = TransformerBattleComparator.SECOND_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.SECOND_OPPONENT;
 
         autobotTeamCombaticons.add(mockBluestreakAutobot);
         autobotTeamCombaticons.add(mockOptimusPrimeAutobot);
@@ -60,7 +60,7 @@ public class TeamTest {
 
     @Test
     public void compareTo_withOneMoreCombaticonInFirstTeamCombaticonsDestroyedInSecondTeam_returnsFirstTeam() {
-        int expectedWinner = TransformerBattleComparator.FIRST_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.FIRST_OPPONENT;
         int expectedNumberOfDestroyedCombaticons = 1;
 
         autobotTeamCombaticons.add(mockBluestreakAutobot);
@@ -88,7 +88,7 @@ public class TeamTest {
 
     @Test
     public void compareTo_withZeroCombaticonDestroyedFromFirstTeamAndZeroCombaticonsDestroyedInSecondTeam_returnsNeitherTeam() {
-        int expectedWinner = TransformerBattleComparator.NEITHER_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.NEITHER_OPPONENT;
 
         autobotTeamCombaticons.add(mockBluestreakAutobot);
         autobotTeamCombaticons.add(mockOptimusPrimeAutobot);
@@ -105,7 +105,7 @@ public class TeamTest {
 
     @Test
     public void compareTo_withAllCombaticonsDestroyedOnEachTeam_returnsNeitherTeam() {
-        int expectedWinner = TransformerBattleComparator.NEITHER_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.NEITHER_OPPONENT;
 
         autobotTeamCombaticons.add(mockBluestreakAutobot);
         autobotTeamCombaticons.add(mockOptimusPrimeAutobot);
@@ -136,7 +136,7 @@ public class TeamTest {
 
     @Test
     public void compareTo_withZeroCombaticonsOnEachTeam_returnsNeitherTeam() {
-        int expectedWinner = TransformerBattleComparator.NEITHER_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.NEITHER_OPPONENT;
 
         int declaredWinner = autobotTeamUnderTest.compareTo(decepticonTeamUnderTest);
 

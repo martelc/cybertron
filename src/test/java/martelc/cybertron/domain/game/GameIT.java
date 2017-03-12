@@ -2,14 +2,14 @@ package martelc.cybertron.domain.game;
 
 import martelc.cybertron.domain.battles.BattleStrategy;
 import martelc.cybertron.domain.battles.OncePerCombaticonBattleStrategy;
-import martelc.cybertron.domain.comparators.TransformerBattleComparator;
-import martelc.cybertron.domain.comparators.TransformerBattleComparatorChain;
-import martelc.cybertron.domain.comparators.TransformerCourageAndStrengthComparator;
-import martelc.cybertron.domain.comparators.TransformerCourageComparator;
-import martelc.cybertron.domain.comparators.TransformerNameComparator;
-import martelc.cybertron.domain.comparators.TransformerRatingComparator;
-import martelc.cybertron.domain.comparators.TransformerSkillComparator;
-import martelc.cybertron.domain.comparators.TransformerStrengthComparator;
+import martelc.cybertron.domain.rules.TransformerBattleRuleRoot;
+import martelc.cybertron.domain.rules.TransformerBattleRuleChain;
+import martelc.cybertron.domain.rules.TransformerCourageAndStrengthRule;
+import martelc.cybertron.domain.rules.TransformerCourageRule;
+import martelc.cybertron.domain.rules.TransformerNameRule;
+import martelc.cybertron.domain.rules.TransformerRatingRule;
+import martelc.cybertron.domain.rules.TransformerSkillRule;
+import martelc.cybertron.domain.rules.TransformerStrengthRule;
 import martelc.cybertron.domain.exceptions.OptimusPrimeMeetsPredakingException;
 import martelc.cybertron.domain.ratings.FiveCriterionTransformerRatingStrategy;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
@@ -53,18 +53,18 @@ public class GameIT {
     private final Transformer shrapnelDecepticon = new ShrapnelDecepticon.ShrapnelDecepticonBuilder().build();
     private final Transformer vortexDecepticon = new VortexDecepticon.VortexDecepticonBuilder().build();
 
-    private final TransformerBattleComparator transformerBattleComparator = new TransformerBattleComparator(
-            new TransformerBattleComparatorChain(
-                    new TransformerNameComparator(),
-                    new TransformerCourageAndStrengthComparator(
-                            new TransformerCourageComparator(),
-                            new TransformerStrengthComparator()),
-                    new TransformerSkillComparator(),
-                    new TransformerRatingComparator(
+    private final TransformerBattleRuleRoot transformerBattleRuleRoot = new TransformerBattleRuleRoot(
+            new TransformerBattleRuleChain(
+                    new TransformerNameRule(),
+                    new TransformerCourageAndStrengthRule(
+                            new TransformerCourageRule(),
+                            new TransformerStrengthRule()),
+                    new TransformerSkillRule(),
+                    new TransformerRatingRule(
                             new FiveCriterionTransformerRatingStrategy())
             ));
 
-    private final BattleStrategy battleStrategy = new OncePerCombaticonBattleStrategy(transformerBattleComparator);
+    private final BattleStrategy battleStrategy = new OncePerCombaticonBattleStrategy(transformerBattleRuleRoot);
     private final Game game = new Game(battleStrategy);
 
     private final Set<Transformer> combaticons = new HashSet<>();

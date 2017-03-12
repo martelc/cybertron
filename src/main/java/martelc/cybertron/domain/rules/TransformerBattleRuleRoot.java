@@ -1,4 +1,4 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.transformers.Transformer;
 
@@ -6,21 +6,21 @@ import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class TransformerBattleComparator implements Comparator<Transformer> {
+public class TransformerBattleRuleRoot implements Comparator<Transformer> {
     public static final int FIRST_OPPONENT = 1;
     public static final int SECOND_OPPONENT = -1;
     public static final int NEITHER_OPPONENT = 0;
 
-    private final TransformerBattleComparatorChain transformerBattleComparatorChain;
+    private final TransformerBattleRuleChain transformerBattleRuleChain;
 
     @Inject
-    public TransformerBattleComparator(TransformerBattleComparatorChain transformerBattleComparatorChain) {
-        this.transformerBattleComparatorChain = transformerBattleComparatorChain;
+    public TransformerBattleRuleRoot(TransformerBattleRuleChain transformerBattleRuleChain) {
+        this.transformerBattleRuleChain = transformerBattleRuleChain;
     }
 
     @Override
     public int compare(Transformer firstTransformer, Transformer secondTransformer) {
-        Iterator<Comparator> comparatorIterator = transformerBattleComparatorChain.provideOrderedComparators().iterator();
+        Iterator<Comparator> comparatorIterator = transformerBattleRuleChain.provideOrderedComparators().iterator();
 
         return compareUntilANonzeroComparisonResult(firstTransformer, secondTransformer, comparatorIterator);
     }

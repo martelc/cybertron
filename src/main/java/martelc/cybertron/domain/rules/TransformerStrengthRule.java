@@ -1,11 +1,11 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.criteria.Criterion;
 import martelc.cybertron.domain.transformers.Transformer;
 
 import java.util.Comparator;
 
-public class TransformerStrengthComparator implements Comparator<Transformer> {
+public class TransformerStrengthRule implements Comparator<Transformer> {
 
     static final int STRENGTH_DIFFERENCE = 3;
 

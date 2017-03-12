@@ -1,4 +1,4 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.exceptions.OptimusPrimeMeetsPredakingException;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
@@ -11,14 +11,14 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-public class TransformerNameComparatorTest {
+public class TransformerNameRuleTest {
 
     private final BluestreakAutobot mockBluestreakAutobot = Mockito.mock(BluestreakAutobot.class);
     private final OptimusPrimeAutobot mockOptimusPrimeAutobot = Mockito.mock(OptimusPrimeAutobot.class);
     private final SoundwaveDecepticon mockSoundwaveDecepticon = Mockito.mock(SoundwaveDecepticon.class);
     private final PredakingDecepticon mockPredakingDecepticon = Mockito.mock(PredakingDecepticon.class);
 
-    private TransformerNameComparator transformerNameComparatorUnderTest = new TransformerNameComparator();
+    private TransformerNameRule transformerNameRuleUnderTest = new TransformerNameRule();
 
     @Test
     public void compare_withFirstTransformerAndSecondTransformerNotInNameComparator_returnsNeitherTransformer() {
@@ -26,15 +26,15 @@ public class TransformerNameComparatorTest {
         when(mockSoundwaveDecepticon.getName()).thenReturn(nameNotInNameComparator);
         when(mockBluestreakAutobot.getName()).thenReturn(nameNotInNameComparator);
 
-        int declaredWinner = transformerNameComparatorUnderTest.compare(
+        int declaredWinner = transformerNameRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
-        assertThat(declaredWinner).isEqualTo(TransformerBattleComparator.NEITHER_OPPONENT);
+        assertThat(declaredWinner).isEqualTo(TransformerBattleRuleRoot.NEITHER_OPPONENT);
     }
 
     @Test
     public void compare_withFirstTransformerNameInComparator_returnsFirstTransformer() {
-        int expectedWinner = TransformerBattleComparator.FIRST_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.FIRST_OPPONENT;
 
         String nameInNameComparator = "Optimus Prime";
         String nameNotInNameComparator = "NameNotInNameComparator";
@@ -42,7 +42,7 @@ public class TransformerNameComparatorTest {
         when(mockOptimusPrimeAutobot.getName()).thenReturn(nameInNameComparator);
         when(mockSoundwaveDecepticon.getName()).thenReturn(nameNotInNameComparator);
 
-        int declaredWinner = transformerNameComparatorUnderTest.compare(
+        int declaredWinner = transformerNameRuleUnderTest.compare(
                 mockOptimusPrimeAutobot, mockSoundwaveDecepticon);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
@@ -50,7 +50,7 @@ public class TransformerNameComparatorTest {
 
     @Test
     public void compare_withSecondTransformerNameInComparator_returnsSecondTransformer() {
-        int expectedWinner = TransformerBattleComparator.SECOND_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.SECOND_OPPONENT;
 
         String nameNotInNameComparator = "NameNotInNameComparator";
         String nameInNameComparator = "Optimus Prime";
@@ -58,7 +58,7 @@ public class TransformerNameComparatorTest {
         when(mockSoundwaveDecepticon.getName()).thenReturn(nameNotInNameComparator);
         when(mockOptimusPrimeAutobot.getName()).thenReturn(nameInNameComparator);
 
-        int declaredWinner = transformerNameComparatorUnderTest.compare(
+        int declaredWinner = transformerNameRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockOptimusPrimeAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
@@ -72,7 +72,7 @@ public class TransformerNameComparatorTest {
         when(mockOptimusPrimeAutobot.getName()).thenReturn(firstNameInNameComparator);
         when(mockPredakingDecepticon.getName()).thenReturn(secondNameInNameComparator);
 
-        transformerNameComparatorUnderTest.compare(
+        transformerNameRuleUnderTest.compare(
                 mockOptimusPrimeAutobot, mockPredakingDecepticon);
     }
 

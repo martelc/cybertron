@@ -1,4 +1,4 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.ratings.TransformerRatingStrategy;
 import martelc.cybertron.domain.transformers.Transformer;
@@ -6,14 +6,14 @@ import martelc.cybertron.domain.transformers.Transformer;
 import javax.inject.Inject;
 import java.util.Comparator;
 
-public class TransformerRatingComparator implements Comparator<Transformer> {
+public class TransformerRatingRule implements Comparator<Transformer> {
 
     private static final int RATING_DIFFERENCE = 1;
 
     private final TransformerRatingStrategy transformerRatingStrategy;
 
     @Inject
-    public TransformerRatingComparator(TransformerRatingStrategy transformerRatingStrategy) {
+    public TransformerRatingRule(TransformerRatingStrategy transformerRatingStrategy) {
         this.transformerRatingStrategy = transformerRatingStrategy;
     }
 

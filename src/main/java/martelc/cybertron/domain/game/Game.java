@@ -1,7 +1,7 @@
 package martelc.cybertron.domain.game;
 
 import martelc.cybertron.domain.battles.BattleStrategy;
-import martelc.cybertron.domain.comparators.TransformerBattleComparator;
+import martelc.cybertron.domain.rules.TransformerBattleRuleRoot;
 import martelc.cybertron.domain.transformers.Autobot;
 import martelc.cybertron.domain.transformers.Decepticon;
 import martelc.cybertron.domain.transformers.Transformer;
@@ -93,7 +93,7 @@ public class Game {
         Team winningTeam;
         Team losingTeam;
 
-        if (TransformerBattleComparator.FIRST_OPPONENT == compareResult) {
+        if (TransformerBattleRuleRoot.FIRST_OPPONENT == compareResult) {
             winningTeam = autobotTeam;
             losingTeam = decepticonTeam;
         } else {

@@ -1,4 +1,4 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.exceptions.OptimusPrimeMeetsPredakingException;
 import martelc.cybertron.domain.transformers.Transformer;
@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TransformerNameComparator implements Comparator<Transformer> {
+public class TransformerNameRule implements Comparator<Transformer> {
 
     private static final Set<String> WINNING_NAMES = new HashSet<>(Arrays.asList("Optimus Prime", "Predaking"));
 

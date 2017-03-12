@@ -1,4 +1,4 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.criteria.Criterion;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
@@ -14,12 +14,12 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-public class TransformerRankComparatorTest {
+public class TransformerRankRuleTest {
 
     private final SoundwaveDecepticon mockSoundwaveDecepticon = Mockito.mock(SoundwaveDecepticon.class);
     private final BluestreakAutobot mockBluestreakAutobot = Mockito.mock(BluestreakAutobot.class);
-    private final TransformerRankComparator transformerRankComparatorUnderTest =
-            new TransformerRankComparator();
+    private final TransformerRankRule transformerRankRuleUnderTest =
+            new TransformerRankRule();
 
     private final Map<Criterion, Integer> soundwaveDecepticonCriteria = new HashMap<>();
     private final Map<Criterion, Integer> bluestreakAutobotCriteri = new HashMap<>();
@@ -32,7 +32,7 @@ public class TransformerRankComparatorTest {
 
     @Test
     public void compare_withFirstTransformerWinningComparison_returnsFirstTransformer() {
-        int expectedWinner = TransformerBattleComparator.FIRST_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.FIRST_OPPONENT;
 
         soundwaveDecepticonCriteria.put(Criterion.RANK, Transformer.CRITERIA_VALUE_MAXIMUM);
         bluestreakAutobotCriteri.put(Criterion.RANK, Transformer.CRITERIA_VALUE_MINIMUM);
@@ -42,7 +42,7 @@ public class TransformerRankComparatorTest {
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerRankComparatorUnderTest.compare(
+        int declaredWinner = transformerRankRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
@@ -50,7 +50,7 @@ public class TransformerRankComparatorTest {
 
     @Test
     public void compare_withSecondTransformerWinningComparison_returnsSecondTransformer() {
-        int expectedWinner = TransformerBattleComparator.SECOND_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.SECOND_OPPONENT;
         soundwaveDecepticonCriteria.put(Criterion.RANK, Transformer.CRITERIA_VALUE_MINIMUM);
         bluestreakAutobotCriteri.put(Criterion.RANK, Transformer.CRITERIA_VALUE_MAXIMUM);
 
@@ -59,7 +59,7 @@ public class TransformerRankComparatorTest {
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerRankComparatorUnderTest.compare(
+        int declaredWinner = transformerRankRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);
@@ -67,7 +67,7 @@ public class TransformerRankComparatorTest {
 
     @Test
     public void compare_withNeitherTransformerWinningComparison_returnsNeitherTransformer() {
-        int expectedWinner = TransformerBattleComparator.NEITHER_OPPONENT;
+        int expectedWinner = TransformerBattleRuleRoot.NEITHER_OPPONENT;
 
         soundwaveDecepticonCriteria.put(Criterion.RANK, Transformer.CRITERIA_VALUE_MINIMUM);
         bluestreakAutobotCriteri.put(Criterion.RANK, Transformer.CRITERIA_VALUE_MINIMUM);
@@ -77,7 +77,7 @@ public class TransformerRankComparatorTest {
         when(mockSoundwaveDecepticon.compareTo(mockBluestreakAutobot)).thenReturn(
                 expectedWinner);
 
-        int declaredWinner = transformerRankComparatorUnderTest.compare(
+        int declaredWinner = transformerRankRuleUnderTest.compare(
                 mockSoundwaveDecepticon, mockBluestreakAutobot);
 
         assertThat(declaredWinner).isEqualTo(expectedWinner);

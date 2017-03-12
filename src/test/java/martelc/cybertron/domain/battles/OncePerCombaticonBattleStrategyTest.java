@@ -1,8 +1,6 @@
 package martelc.cybertron.domain.battles;
 
-import martelc.cybertron.domain.battles.BattleStrategy;
-import martelc.cybertron.domain.battles.OncePerCombaticonBattleStrategy;
-import martelc.cybertron.domain.comparators.TransformerBattleComparator;
+import martelc.cybertron.domain.rules.TransformerBattleRuleRoot;
 import martelc.cybertron.domain.game.Team;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
 import martelc.cybertron.domain.transformers.OptimusPrimeAutobot;
@@ -27,9 +25,9 @@ public class OncePerCombaticonBattleStrategyTest {
     private final PredakingDecepticon mockPredakingDecepticon = Mockito.mock(PredakingDecepticon.class);
     private final Team mockAutobotTeam = Mockito.mock(Team.class);
     private final Team mockDecepticonTeam = Mockito.mock(Team.class);
-    private final TransformerBattleComparator mockTransformerBattleComparator =
-            Mockito.mock(TransformerBattleComparator.class);
-    private final BattleStrategy battleStrategyUnderTest = new OncePerCombaticonBattleStrategy(mockTransformerBattleComparator);
+    private final TransformerBattleRuleRoot mockTransformerBattleRuleRoot =
+            Mockito.mock(TransformerBattleRuleRoot.class);
+    private final BattleStrategy battleStrategyUnderTest = new OncePerCombaticonBattleStrategy(mockTransformerBattleRuleRoot);
 
     private final List<Transformer> autobotTeamCombaticons = new ArrayList<>();
     private final List<Transformer> decepticonTeamCombaticons = new ArrayList<>();
@@ -49,9 +47,9 @@ public class OncePerCombaticonBattleStrategyTest {
 
         when(mockAutobotTeam.getCombaticons()).thenReturn(autobotTeamCombaticons);
         when(mockDecepticonTeam.getCombaticons()).thenReturn(decepticonTeamCombaticons);
-        when(mockTransformerBattleComparator.compare(
+        when(mockTransformerBattleRuleRoot.compare(
                 mockBluestreakAutobot, mockSoundwaveDecepticon)).thenReturn(
-                        TransformerBattleComparator.FIRST_OPPONENT);
+                        TransformerBattleRuleRoot.FIRST_OPPONENT);
 
         int numberOfBattles = battleStrategyUnderTest.executeBattle(mockAutobotTeam, mockDecepticonTeam);
 
@@ -68,9 +66,9 @@ public class OncePerCombaticonBattleStrategyTest {
 
         when(mockAutobotTeam.getCombaticons()).thenReturn(autobotTeamCombaticons);
         when(mockDecepticonTeam.getCombaticons()).thenReturn(decepticonTeamCombaticons);
-        when(mockTransformerBattleComparator.compare(
+        when(mockTransformerBattleRuleRoot.compare(
                 mockBluestreakAutobot, mockSoundwaveDecepticon)).thenReturn(
-                TransformerBattleComparator.FIRST_OPPONENT);
+                TransformerBattleRuleRoot.FIRST_OPPONENT);
 
         int numberOfBattles = battleStrategyUnderTest.executeBattle(mockAutobotTeam, mockDecepticonTeam);
 
@@ -87,9 +85,9 @@ public class OncePerCombaticonBattleStrategyTest {
 
         when(mockAutobotTeam.getCombaticons()).thenReturn(autobotTeamCombaticons);
         when(mockDecepticonTeam.getCombaticons()).thenReturn(decepticonTeamCombaticons);
-        when(mockTransformerBattleComparator.compare(
+        when(mockTransformerBattleRuleRoot.compare(
                 mockBluestreakAutobot, mockSoundwaveDecepticon)).thenReturn(
-                TransformerBattleComparator.FIRST_OPPONENT);
+                TransformerBattleRuleRoot.FIRST_OPPONENT);
 
         int numberOfBattles = battleStrategyUnderTest.executeBattle(mockAutobotTeam, mockDecepticonTeam);
 
@@ -107,12 +105,12 @@ public class OncePerCombaticonBattleStrategyTest {
 
         when(mockAutobotTeam.getCombaticons()).thenReturn(autobotTeamCombaticons);
         when(mockDecepticonTeam.getCombaticons()).thenReturn(decepticonTeamCombaticons);
-        when(mockTransformerBattleComparator.compare(
+        when(mockTransformerBattleRuleRoot.compare(
                 mockBluestreakAutobot, mockSoundwaveDecepticon)).thenReturn(
-                TransformerBattleComparator.FIRST_OPPONENT);
-        when(mockTransformerBattleComparator.compare(
+                TransformerBattleRuleRoot.FIRST_OPPONENT);
+        when(mockTransformerBattleRuleRoot.compare(
                 mockOptimusPrimeAutobot, mockPredakingDecepticon)).thenReturn(
-                TransformerBattleComparator.FIRST_OPPONENT);
+                TransformerBattleRuleRoot.FIRST_OPPONENT);
 
         int numberOfBattles = battleStrategyUnderTest.executeBattle(mockAutobotTeam, mockDecepticonTeam);
 

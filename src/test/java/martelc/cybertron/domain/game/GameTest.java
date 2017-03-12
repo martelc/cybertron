@@ -1,7 +1,7 @@
 package martelc.cybertron.domain.game;
 
 import martelc.cybertron.domain.battles.BattleStrategy;
-import martelc.cybertron.domain.comparators.TransformerBattleComparator;
+import martelc.cybertron.domain.rules.TransformerBattleRuleRoot;
 import martelc.cybertron.domain.transformers.BluestreakAutobot;
 import martelc.cybertron.domain.transformers.OptimusPrimeAutobot;
 import martelc.cybertron.domain.transformers.PredakingDecepticon;
@@ -27,8 +27,8 @@ public class GameTest {
     private final PredakingDecepticon mockPredakingDecepticon = Mockito.mock(PredakingDecepticon.class);
     private final Team mockAutobotTeam = Mockito.mock(Team.class);
     private final Team mockDecepticonTeam = Mockito.mock(Team.class);
-    private final TransformerBattleComparator mockTransformerBattleComparator =
-            Mockito.mock(TransformerBattleComparator.class);
+    private final TransformerBattleRuleRoot mockTransformerBattleRuleRoot =
+            Mockito.mock(TransformerBattleRuleRoot.class);
     private final BattleStrategy mockBattleStrategy = Mockito.mock(BattleStrategy.class);
     private final Game gameUnderTest = new Game(mockBattleStrategy);
 
@@ -57,12 +57,12 @@ public class GameTest {
 
         when(mockAutobotTeam.getCombaticons()).thenReturn(autobotTeamCombaticons);
         when(mockDecepticonTeam.getCombaticons()).thenReturn(decepticonTeamCombaticons);
-        when(mockTransformerBattleComparator.compare(
+        when(mockTransformerBattleRuleRoot.compare(
                 mockBluestreakAutobot, mockSoundwaveDecepticon)).thenReturn(
-                TransformerBattleComparator.FIRST_OPPONENT);
-        when(mockTransformerBattleComparator.compare(
+                TransformerBattleRuleRoot.FIRST_OPPONENT);
+        when(mockTransformerBattleRuleRoot.compare(
                 mockOptimusPrimeAutobot, mockPredakingDecepticon)).thenReturn(
-                TransformerBattleComparator.FIRST_OPPONENT);
+                TransformerBattleRuleRoot.FIRST_OPPONENT);
         when(mockBattleStrategy.executeBattle(mockAutobotTeam, mockDecepticonTeam)).thenReturn(2);
 
         try {

@@ -1,11 +1,11 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.criteria.Criterion;
 import martelc.cybertron.domain.transformers.Transformer;
 
 import java.util.Comparator;
 
-public class TransformerCourageComparator implements Comparator<Transformer> {
+public class TransformerCourageRule implements Comparator<Transformer> {
 
     static final int COURAGE_DIFFERENCE = 4;
 

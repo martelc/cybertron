@@ -1,11 +1,11 @@
-package martelc.cybertron.domain.comparators;
+package martelc.cybertron.domain.rules;
 
 import martelc.cybertron.domain.criteria.Criterion;
 import martelc.cybertron.domain.transformers.Transformer;
 
 import java.util.Comparator;
 
-public class TransformerRankComparator implements Comparator<Transformer> {
+public class TransformerRankRule implements Comparator<Transformer> {
 
     @Override
     public int compare(Transformer firstTransformer, Transformer secondTransformer) {
